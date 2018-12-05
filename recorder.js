@@ -42,6 +42,15 @@
                     //监听音频录制过程
                     var array = event.inputBuffer.getChannelData(0);
                     realTimeWorker.postMessage({ cmd: 'encode', buf: array });
+					
+					var maxVal = 0; 
+					for (var i = 0; i < array.length; i++) {
+							if (maxVal < array[i]) {
+									maxVal = array[i];
+							}
+					}
+					//显示音量值
+					document.querySelector('#showVoice').innerHTML = "您的音量值："+Math.round(maxVal*100);
                 };
 
                 var realTimeWorker = new Worker('worker.js'); //开启后台线程
@@ -82,7 +91,7 @@
                 //结束录音
                 _this.stop = function(){
                     if(processor && microphone){
-                        microphone.disconnect();
+                        microphone.disconnect();  //disconnect断开所有链接
                         processor.disconnect();
                         Util.log('录音结束');
                     }
