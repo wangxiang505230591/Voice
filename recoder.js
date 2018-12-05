@@ -20,9 +20,9 @@
         var volume = context.createGain();  
         audioInput.connect(volume);  
   
-context.onstatechange = function() {
-  console.log("state",context.state);
-}
+		context.onstatechange = function() {
+		  console.log("state",context.state);
+		}
         //创建缓存，用来缓存声音  
         var bufferSize = 4096;  
         // 创建声音的缓存节点，createScriptProcessor方法的  
